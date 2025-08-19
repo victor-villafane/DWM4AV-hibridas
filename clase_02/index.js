@@ -4,34 +4,40 @@ const http = require("http") //importamos usando commonjs
 const listado = [
     {
         id: 1,
-        nombre: "Juan",
-        apellido: "Perez"
+        nombre: "Café Expreso",
+        precio: 123
     },
     {
         id: 2,
-        nombre: "Ana",
-        apellido: "Gomez"
+        nombre: "Cafe Latte",
+        precio: 200
     },
     {
         id: 3,
-        nombre: "Luis",
-        apellido: "Martinez"
+        nombre: "Cafe Americano",
+        precio: 150
     }
 ]
 
 const server = http.createServer( function(request, response){
     console.log(request.url)
+    response.write(`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Mi espectacular pagina web</title></head><body>`) //alt + 96
     response.write("<h1>Mi espectacular pagina web!</h1>")
     // response.write("<br>")
     switch(request.url){
         case "/":
-            response.write("Estoy en home")
+            response.write("Juan Perez")
             break
-        case "/usuarios":
-            response.write("Estoy en /usuarios")
+        case "/materia":
+            response.write("Aplicaciones Hibridas")
+            break
+        case "/profesor":
+            response.write("Pepe perez")
+            break            
+        case "/productos":
             response.write("<ul>")
-            listado.forEach( usuario => {
-                response.write(`<li>${usuario.id} - ${usuario.nombre} - ${usuario.apellido}</li>`)
+            listado.forEach( producto => {
+                response.write(`<li>${producto.id} - ${producto.nombre} - ${producto.precio}</li>`)
             } )
             response.write("</ul>")
             break
@@ -39,9 +45,10 @@ const server = http.createServer( function(request, response){
             response.write("No se encontro")
             break
     }
+    response.write("</body></html>")
     response.end()
 } )
 
-server.listen( 3000, () => {
-    console.log("Todo funcionando")
+server.listen( 2023, () => {
+    console.log("Todo funcionando en en puerto 2023")
 })
