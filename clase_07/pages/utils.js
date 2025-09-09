@@ -4,6 +4,8 @@ export function createPage(titulo, contenido){
     html += '<!DOCTYPE html><html><head><meta charset="UTF-8">'
     html += '<title>'+ titulo +'</title>'
     html += '<h1>'+titulo+'</h1>'
+    html += "" //boostrap 5
+    html += "link css"
     html += contenido
     html += '</body></html>'
 

@@ -49,6 +49,6 @@ export function eliminarFormulario(req, res){
 
 export function eliminarProducto(req, res){
     const id = req.params.id
-    service.eliminarProducto( id )
+    service.eliminarProductoLogico( id )
         .then( producto => res.send( view.eliminarExito() ) )
 }
