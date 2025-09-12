@@ -2,7 +2,7 @@ import express from "express"
 import * as controllers from "../controllers/productos.api.controllers.js"
 
 const route = express.Router()
-
+//compass: https://www.mongodb.com/try/download/compass
 route.get( "/", controllers.getProductos )
 route.get( "/:id", controllers.getProductosById )
 route.post( "/", controllers.createProduct )
