@@ -1,0 +1,13 @@
+import express from "express"
+import * as controllers from "../controllers/productos.api.controllers.js"
+
+const route = express.Router()
+
+route.get( "/", controllers.getProductos )
+route.get( "/:id", controllers.getProductosById )
+route.post( "/", controllers.createProduct )
+route.delete("/:id", controllers.deleteProduct)
+route.put( "/:id", controllers.reemplazarProducto )
+route.patch( "/:id", controllers.editarProducto )
+
+export default route
