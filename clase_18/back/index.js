@@ -4,16 +4,16 @@ import ProductosApiRoute from "./api/routes/productos.api.routes.js"
 import ClientesApiRoute from "./api/routes/clientes.api.routes.js"
 import swaggerFile from './swagger.output.json' with { type: 'json' }
 import swaggerUI from 'swagger-ui-express'
-import cors from "express"
+import cors from "cors"
 
 const app = express()
 
 const corsOptions = {
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST"]
+    origin: "http://localhost:5173",    // Permite solicites solo desde esta URL
+    methods: "GET,POST,PUT,DELETE",      // Metodos permitidos
 }
 
-app.use(cors(corsOptions))
+app.use( cors(corsOptions) )
 
 app.use( express.urlencoded({extended: true}) )
 app.use( express.json() )
