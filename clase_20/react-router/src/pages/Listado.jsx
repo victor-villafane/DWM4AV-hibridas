@@ -1,13 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router'
+import { SessionContext, useToken } from '../contexts/SessionContext'
 
 const Listado = () => {
 
     const [productos, setProductos] = useState([])
-    
+    const token = useToken()
     useEffect(() => {
-        fetch("http://localhost:2025/api/productos")
-            .then(res => res.json())
+        fetch("http://localhost:2025/api/productos", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
+            .then(res => {
+                if( !res.ok ) throw new Error("Fetch error")
+                return res.json()
+            })
             .then(products => {
                 setProductos(products)
                 console.log(products)

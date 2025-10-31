@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router'
+import { useToken } from '../contexts/SessionContext'
 
 const Detalle = () => {
     const [producto, setProducto] = useState(null)
     const params = useParams()
-    console.log(params.id)
+    const token = useToken()
 
     useEffect(() => {
         // fetch("https://hp-api.onrender.com/api/character/" + params.id)
-        fetch("http://localhost:2025/api/productos/" + params.id)
+        fetch("http://localhost:2025/api/productos/" + params.id, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        })
             .then((res) => res.json())
             .then(data => setProducto(data))
             .catch(err => console.log(err))

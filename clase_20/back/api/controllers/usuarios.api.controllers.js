@@ -7,6 +7,7 @@ export function createUser(req, res){
 }
 
 export function login(req, res){
+    console.log("RECIBI LA SOLICITUD")
     services.login(req.body)
         .then( usuario => res.status(201).json(usuario) )
         .catch( err => res.status(400).json(err) )

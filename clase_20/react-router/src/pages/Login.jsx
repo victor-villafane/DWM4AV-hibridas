@@ -1,23 +1,42 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router'
+import { SessionContext, useLogin } from '../contexts/SessionContext'
 const Login = () => {
 
     const navitate = useNavigate()
 
     const [email, setEmail] = useState("")
     const [pass, setPass] = useState("")
+    const [ error, setError ] = useState("")
+
+    const login = useLogin()
 
     const handleSubmit = () => {
         console.log(email, pass)
-        //TODO llamar a la api
-        localStorage.setItem("session", JSON.stringify({email: email, pass: pass}))
-        navitate('/listado')
+        fetch("http://localhost:2025/api/usuarios/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({email, password: pass})
+        })
+            .then( res => {
+                if( !res.ok ) throw new Error("Credenciales invalidas")
+                return res.json()
+            } )
+            .then( usuario => {
+                login(usuario)
+                setError("")
+                navitate('/listado')
+            } )
+            .catch( err => setError("Credenciales invalidas") )
     }
 
     return (
         <div className='min-h-screen bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center p-4' >
             <div className="w-full max-w-md">
                 <div className="bg-white rounded-2xl shadow-2xl p-8">
+                    { error.length > 0 && <p className='text-center' >{error}</p>}
                     <div className="text-center mb-8">
                         <h1 className='text-3xl font-bold text-gray-800' >Bienvenido</h1>
                         <p className='text-gray-500 mt-2' >Ingresar Cuenta</p>

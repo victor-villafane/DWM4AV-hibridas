@@ -11,6 +11,8 @@ import Detalle from './pages/Detalle.jsx'
 import Login from './pages/Login.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import ProtectedRouteAdmin from './components/ProtectedRouteAdmin.jsx'
+import {  SessionProvider } from './contexts/SessionContext.jsx'
+import Logout from './pages/Logout.jsx'
 
 //https://tailwindcss.com/docs/installation/using-vite
 
@@ -34,7 +36,11 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />
-      },      
+      },  
+      {
+        path: "/logout",
+        element: <Logout />
+      }    
     ]
   },
   {
@@ -46,6 +52,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <SessionProvider >
+      <RouterProvider router={router} />
+    </SessionProvider>
   </StrictMode>,
 )
